@@ -15,30 +15,35 @@ namespace NovelRT::Windowing {
 
   private:
     Maths::GeoVector<float> _windowSize;
-    std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> _window;
+    std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)> _window;
+    //std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> _window;
     LoggingService _logger;
     NovelRunner* _runner;
+    std::string _windowTitle;
 
   public:
     explicit WindowingService(NovelRunner* const runner);
     void initialiseWindow(int displayNumber, const std::string& windowTitle);
     void tearDown();
 
-    inline SDL_Window* getWindow() const {
+    inline GLFWwindow* getWindow() const {
       return _window.get();
     }
 
     inline std::string getWindowTitle() const {
-      return SDL_GetWindowTitle(getWindow());
+      return _windowTitle;
     }
 
     inline void setWindowTitle(const std::string& value) {
-      return SDL_SetWindowTitle(getWindow(), value.c_str());
+      //return SDL_SetWindowTitle(getWindow(), value.c_str());
+      _windowTitle = value;
+      return glfwGetWindowTitle(getWindow(), _windowTitle);
     }
 
     inline void setWindowSize(const Maths::GeoVector<float>& value) {
       _windowSize = value;
-      SDL_SetWindowSize(getWindow(), value.getX(), value.getY());
+      //SDL_SetWindowSize(getWindow(), value.getX(), value.getY());
+      glfwSetWindowSize(getWindow(), value.getX(), value.getY());
       raiseWindowResized(_windowSize);
     }
 
@@ -48,11 +53,18 @@ namespace NovelRT::Windowing {
       Its not something we can fix. See relevant bug ticket and GLFW proposal ticket for further information.
       If we go ahead with that, we will switch back to the private field.
       */
+      /*
       int x = 0;
       int y = 0;
-      SDL_GetWindowSize(getWindow(), &x, &y); 
+      SDL_GetWindowSize(getWindow(), &x, &y);
 
       return Maths::GeoVector<float>(x, y);
+      */
+
+      int x = 0;
+      int y = 0;
+      glfwGetWindowSize(getWindow(), &x, &y);
+     return Maths::GeoVector<float>(x,y);
     }
   };
 }
