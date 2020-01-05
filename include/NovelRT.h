@@ -27,12 +27,13 @@
 #include FT_FREETYPE_H
 
 //GL
-#ifdef __EMSCRIPTEN__
 #define GLFW_INCLUDE_ES3
+#ifdef __EMSCRIPTEN__
 #include <GLES3/gl3.h>
 #include <GLFW/glfw3.h>
 #else
 #include <glad.h>
+#include <GLFW/glfw3.h> //Must be called in after glad to prevent redefinition
 #endif
 
 //GLM
