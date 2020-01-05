@@ -26,8 +26,14 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-//glad
+//GL
+#ifdef __EMSCRIPTEN__
+#define GLFW_INCLUDE_ES3
+#include <GLES3/gl3.h>
+#include <GLFW/glfw3.h>
+#else
 #include <glad.h>
+#endif
 
 //GLM
 #include <glm/glm.hpp>
@@ -44,6 +50,11 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/async.h"
+
+//Emscripten Support
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 
 namespace NovelRT {
   typedef void (*NovelUpdateSubscriber)(double deltaSeconds);

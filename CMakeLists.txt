@@ -46,7 +46,7 @@ else()
 endif()
 
 file(COPY ${CORECLR} DESTINATION lib/CoreCLR/Active)
-
+if(NOT EMSCRIPTEN)
 find_package(Freetype REQUIRED)
 find_package(glad CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
@@ -64,6 +64,22 @@ link_libraries(${LUA_LIBRARY})
 
 find_package(Doxygen QUIET)
 include_directories(include)
+else()
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL=2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_SDL_IMAGE=2")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_FREETYPE=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s FORCE_FILESYSTEM=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s DEMANGLE_SUPPORT=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_GLFW=3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_WEBGL2=1")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s FULL_ES3=1")
+set(ldflags "${ldflags} -s DISABLE_DEPRECATED_FIND_EVENT_TARGET_BEHAVIOR=0")
+include_directories("../../include/glm")
+include_directories("include")
+
+endif()
+
 
 set(NOVELRT_LIBRARY_HEADERS
   include/NovelRT.h
@@ -121,6 +137,7 @@ set(NOVELRT_LIBRARY_SOURCES
 
   source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${NOVELRT_LIBRARY_SOURCES})
 
+if(NOT EMSCRIPTEN)
 set(NOVELRT_LINK_LIBRARIES
   Freetype::Freetype
   glad::glad
@@ -137,6 +154,7 @@ if(NOT WIN32)
       ${NOVELRT_LINK_LIBRARIES}
       m
     )
+endif()
 endif()
 
 set(NOVELRT_EXECUTABLE_HEADERS
@@ -156,6 +174,8 @@ target_link_libraries(NovelRT ${NOVELRT_EXECUTABLE_LINK_LIBRARIES})
 
 if (WIN32)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+elseif (Emscripten)
+  set(CMAKE_EXECUTABLE_SUFFIX ".html")
 endif()
 
 set(NOVELRT_LIBRARY_LINK_LIBRARIES
@@ -244,7 +264,7 @@ add_library(libNovelRT SHARED ${NOVELRT_LIBRARY_HEADERS} ${NOVELRT_LIBRARY_SOURC
 target_link_libraries(libNovelRT ${NOVELRT_LIBRARY_LINK_LIBRARIES})
 
 # Docs
-
+if (NOT Emscripten)
 if (DOXYGEN_FOUND)
   set(DOXYGEN_INPUT_DIR ${PROJECT_SOURCE_DIR}/src)
   set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/docs)
@@ -274,3 +294,4 @@ if (DOXYGEN_FOUND)
 
   add_custom_target(Doxygen ALL DEPENDS ${DOXYGEN_INDEX_FILE})
 endif (DOXYGEN_FOUND)
+endif()
