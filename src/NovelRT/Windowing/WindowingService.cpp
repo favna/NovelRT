@@ -27,6 +27,10 @@ namespace NovelRT::Windowing {
     //SDL_DisplayMode displayData;
     //SDL_GetCurrentDisplayMode(displayNumber, &displayData);
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+
     GLFWmonitor primaryMonitor = glfwGetPrimaryMonitor();
     GLFWvidmode* displayData = glfwGetVideoMode(primaryMonitor);
 
