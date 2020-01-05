@@ -49,6 +49,7 @@ file(COPY ${CORECLR} DESTINATION lib/CoreCLR/Active)
 if(NOT EMSCRIPTEN)
 find_package(Freetype REQUIRED)
 find_package(glad CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
@@ -141,6 +142,7 @@ if(NOT EMSCRIPTEN)
 set(NOVELRT_LINK_LIBRARIES
   Freetype::Freetype
   glad::glad
+  glfw
   glm
   SDL2::SDL2-static
   SDL2::SDL2_image
