@@ -1,7 +1,7 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT Licence (MIT). See LICENCE.md in the repository root for more information.
 
 #include <NovelRT.h>
-#define GL_GLEXT_PROTOTYPES
+#define GL_GLEXT_PROTOTYPES 1
 
 namespace NovelRT::Graphics {
   bool RenderingService::initialiseRenderPipeline(bool completeLaunch, Maths::GeoVector<float>* const optionalWindowSize) {
@@ -24,7 +24,7 @@ namespace NovelRT::Graphics {
 
       //_openGLContext = SDL_GL_CreateContext(_runner->getWindowingService()->getWindow());
       //SDL_GL_MakeCurrent(_runner->getWindowingService()->getWindow(), _openGLContext);
-      glfwMakeContextCurrent(_runner->)getWindowingService()-getWindow());
+      glfwMakeContextCurrent(_runner->getWindowingService()->getWindow());
 
       if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         _logger.logErrorLine("Failed to initialise glad.");

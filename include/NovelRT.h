@@ -26,14 +26,17 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#define GL_H GLAD_H
+
 //GL
-#define GLFW_INCLUDE_ES3
 #ifdef __EMSCRIPTEN__
+#define GLFW_INCLUDE_ES3
 #include <GLES3/gl3.h>
 #include <GLFW/glfw3.h>
 #else
-#include <glad.h>
+#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h> //Must be called in after glad to prevent redefinition
+#include <glad/glad.h>
 #endif
 
 //GLM
