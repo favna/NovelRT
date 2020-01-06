@@ -11,6 +11,11 @@ namespace NovelRT::Input {
     _keyStates.insert({ KeyCode::RightMouseButton, KeyState::Idle });
   }
 
+  void InteractionService::consumePlayerInput() {
+    glfwPollEvents();
+
+  }
+
   void InteractionService::HandleInteractionDraw(InteractionObject* target) {
     if (_keyStates[target->getSubscribedKey()] == KeyState::KeyDown
       && target->validateInteractionPerimeter(_mousePositionsOnScreenPerButton[KeyCode::LeftMouseButton])
@@ -18,6 +23,20 @@ namespace NovelRT::Input {
       _clickTarget = target;
   }
 
+  
+  std::unique_ptr<BasicInteractionRect> InteractionService::createBasicInteractionRect(const Transform& transform, int layer) {
+    return std::make_unique<BasicInteractionRect>(transform, layer, [this](InteractionObject* x) { HandleInteractionDraw(x); });
+  }
+  void InteractionService::executeClickedInteractable() {
+    if (_clickTarget == nullptr) return;
+
+    _clickTarget->raiseInteracted();
+    _clickTarget = nullptr;
+  }
+}
+
+
+/*
   void InteractionService::consumePlayerInput() {
     SDL_Event sdlEvent;
 
@@ -83,14 +102,4 @@ namespace NovelRT::Input {
       }
     }
   }
-
-  std::unique_ptr<BasicInteractionRect> InteractionService::createBasicInteractionRect(const Transform& transform, int layer) {
-    return std::make_unique<BasicInteractionRect>(transform, layer, [this](InteractionObject* x) { HandleInteractionDraw(x); });
-  }
-  void InteractionService::executeClickedInteractable() {
-    if (_clickTarget == nullptr) return;
-
-    _clickTarget->raiseInteracted();
-    _clickTarget = nullptr;
-  }
-}
+  */

@@ -10,8 +10,6 @@
 namespace NovelRT::Input {
   enum class KeyCode : int32_t {
     Nothing = GLFW_KEY_UNKNOWN,
-    LeftMouseButton = 323,
-    RightMouseButton = 324,
     Enter = GLFW_KEY_ENTER,
     Escape = GLFW_KEY_ESCAPE,
     Backspace = GLFW_KEY_BACKSPACE,
@@ -131,7 +129,12 @@ namespace NovelRT::Input {
     NumPadFullStop = GLFW_KEY_KP_DECIMAL,
     NumPadEquals = GLFW_KEY_KP_EQUAL,
 
-    MenuKey = GLFW_KEY_MENU
+    MenuKey = GLFW_KEY_MENU,
+
+    //The next two should only be used when checking MouseEvents
+
+      LeftMouseButton = GLFW_MOUSE_BUTTON_LEFT,
+      RightMouseButton = GLFW_MOUSE_BUTTON_RIGHT
   };
 }
 
