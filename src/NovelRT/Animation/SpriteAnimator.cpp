@@ -41,8 +41,8 @@ namespace NovelRT::Animation {
           }
 
           auto newFrame = _currentState->getFrames()->at(_currentFrameIndex);
-          newFrame.FrameEnter();
           _rect->setTexture(newFrame.getTexture());
+          newFrame.FrameEnter();
         }
 
 
