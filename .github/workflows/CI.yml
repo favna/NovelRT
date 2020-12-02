@@ -68,11 +68,11 @@ jobs:
         
       - name: 'Run Windows Setup'
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
-        run: './scripts/machine-setup.cmd'
+        run: '%GITHUB_WORKSPACE%/scripts/machine-setup.cmd'
         shell: cmd
         
       - name: 'Run CI Build Script'
-        run: '${GITHUB_WORKSPACE}/scripts/cibuild.cmd'
+        run: '%GITHUB_WORKSPACE%/scripts/cibuild.cmd'
         shell: cmd
   Windows_x64_Release:
     # The type of runner that the job will run on
@@ -86,9 +86,9 @@ jobs:
         
       - name: 'Run Windows Setup'
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
-        run: '${GITHUB_WORKSPACE}/scripts/machine-setup.cmd'
+        run: '%GITHUB_WORKSPACE%/scripts/machine-setup.cmd'
         shell: cmd
         
       - name: 'Run CI Build Script'
-        run: '${GITHUB_WORKSPACE}/scripts/cibuild.cmd -configuration Release'
+        run: '%GITHUB_WORKSPACE%/scripts/cibuild.cmd -configuration Release'
         shell: cmd
