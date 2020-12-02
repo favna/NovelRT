@@ -56,16 +56,6 @@ jobs:
             path: 'C:/Users/runneradmin/vcpkg'
             key: ${{ runner.os }}-vcpkg-debug
         
-      - name: 'Install SetupTools'
-        if: steps.cache-vcpkg.outputs.cache-hit == 'true'
-        run: 'python -m pip install setuptools'
-        shell: cmd
-      
-      - name: 'Install GLAD'
-        if: steps.cache-vcpkg.outputs.cache-hit == 'true'
-        run: 'python -m pip install glad'
-        shell: cmd
-        
       - name: 'Run Windows Setup'
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
         run: '%GITHUB_WORKSPACE%/scripts/machine-setup.cmd'
