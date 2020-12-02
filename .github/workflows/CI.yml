@@ -17,7 +17,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: './scripts/novelrt-build.linux.Dockerfile'
+      image: 'novelrt:/novelrt-build:latest'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -26,12 +26,12 @@ jobs:
         uses: actions/checkout@v2
         
       - name: 'Run CI Build Script'
-        run: './scripts/cibuild.sh --configuration DEBUG'
+        run: '$GITHUB_WORKSPACE/scripts/cibuild.sh --configuration DEBUG'
   ubuntu_x64_release:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: './scripts/novelrt-build.linux.Dockerfile'
+      image: 'novelrt:/novelrt-build:latest'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: 'Run CI Build Script'
-        run: './scripts/cibuild.sh --configuration RELEASE'
+        run: '$GITHUB_WORKSPACE/scripts/cibuild.sh --configuration RELEASE'
   Windows_x64_Debug:
     # The type of runner that the job will run on
     runs-on: windows-latest
@@ -72,7 +72,7 @@ jobs:
         shell: cmd
         
       - name: 'Run CI Build Script'
-        run: './scripts/cibuild.cmd'
+        run: '$GITHUB_WORKSPACE/scripts/cibuild.cmd'
         shell: cmd
   Windows_x64_Release:
     # The type of runner that the job will run on
@@ -103,9 +103,9 @@ jobs:
         
       - name: 'Run Windows Setup'
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
-        run: './scripts/machine-setup.cmd'
+        run: '$GIHUB_WORKSPACE/scripts/machine-setup.cmd'
         shell: cmd
         
       - name: 'Run CI Build Script'
-        run: './scripts/cibuild.cmd -configuration Release'
+        run: '$GITHUB_WORKSPACE/scripts/cibuild.cmd -configuration Release'
         shell: cmd
