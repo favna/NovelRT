@@ -39,7 +39,6 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Run Windows Setup
-        if: steps.cache-vcpkg.outputs.cache-hit != 'true'
         run: scripts/machine-setup.cmd
 
       - name: Run CI Build Script
