@@ -15,7 +15,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: './NovelRT/scripts/novelrt-build.linux.Dockerfile'
+      image: '$GITHUB_WORKSPACE/scripts/novelrt-build.linux.Dockerfile'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -29,7 +29,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     container:
-      image: './NovelRT/scripts/novelrt-build.linux.Dockerfile'
+      image: '$GITHUB_WORKSPACE/scripts/novelrt-build.linux.Dockerfile'
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
