@@ -10,6 +10,8 @@ jobs:
   CI_Ubuntu:
     name: ubuntu_${{ matrix.configuration }}_x64
     runs-on: ubuntu-latest
+    container:
+      image: 'novelrt/novelrt-build:latest'
     strategy:
       matrix:
         configuration: [DEBUG, RELEASE]
