@@ -49,12 +49,6 @@ jobs:
     steps:
       - name: 'Checkout code'
         uses: actions/checkout@v2
-      - name: 'Cache vcpkg'
-        id: cache-vcpkg
-        uses: actions/cache@v2
-        with:
-            path: 'C:/Users/runneradmin/vcpkg'
-            key: ${{ runner.os }}-vcpkg-debug
         
       - name: 'Run Windows Setup'
         if: steps.cache-vcpkg.outputs.cache-hit != 'true'
