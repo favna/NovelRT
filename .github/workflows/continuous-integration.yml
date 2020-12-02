@@ -11,7 +11,7 @@ jobs:
     name: ubuntu_${{ matrix.configuration }}_x64
     runs-on: ubuntu-latest
     container:
-      image: 'novelrt/novelrt-build:latest'
+      image: novelrt/novelrt-build:latest
     strategy:
       matrix:
         configuration: [DEBUG, RELEASE]
