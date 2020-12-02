@@ -20,14 +20,14 @@ jobs:
 
       - name: Ubuntu - Run CI Build Script
         if: matrix.os == 'ubuntu-latest'
-        run: scripts/cibuild.sh --configuration ${{ matrix.configuration }}
+        run: %{GITHUB_WORKSPACE}/scripts/cibuild.sh --configuration ${{ matrix.configuration }}
 
       - name: Run Windows Setup
         if: (steps.cache-vcpkg.outputs.cache-hit != 'true' && matrix.os == 'windows-latest')
-        run: scripts/machine-setup.cmd
+        run: %{GITHUB_WORKSPACE}/scripts/machine-setup.cmd
         shell: cmd
 
       - name: Run CI Build Script
         if: matrix.os == 'windows-latest'
-        run: ./scripts/cibuild.cmd -configuration ${{ matrix.configuration }}
+        run: $GITHUB_WORKSPACE%/scripts/cibuild.cmd -configuration ${{ matrix.configuration }}
         shell: cmd
